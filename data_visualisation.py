@@ -1,5 +1,5 @@
 ##plot to visualise the galaxies in the dark matter potential
-##Blue is the dark matter while yello are the galaxies 
+##Blue is the dark matter while yellow are the galaxies 
 
 import numpy as np
 import matplotlib.pyplot as plt
