@@ -40,14 +40,14 @@ def counter (X,Y,Z,dr):
 			sum_d = np.sum(d,axis=0)
 			if x!=num/2:dist = np.concatenate((dist,sum_d))
 			else: dist = np.concatenate((dist,sum_d[:-(num/2)]))
-			if x%100000==0: print x,time.time()-start_time
+			if x%1000==0: print x,time.time()-start_time
 	else:
 		for x in range (1,(num+1)/2):
 			P_prime = np.roll(P,x,axis=1)
 			d = (P-P_prime)**2
 			sum_d = np.sum(d,axis=0)
 			dist = np.concatenate((dist,sum_d))
-			if x%100000==0: print x,time.time()-start_time
+			if x%1000==0: print x,time.time()-start_time
 
 	dist = np.sqrt(dist)
 	bins = int(np.sqrt(3)*450/dr)
