@@ -1,5 +1,8 @@
 import numpy as np
-import matplotlib.pyplot as plt
+#import matplotlib.pyplot as plt
+import time
+
+
 def counter (X,Y,Z,dr):
 	
 	'''
@@ -25,10 +28,11 @@ def counter (X,Y,Z,dr):
 	2) The length of edges array is one more than histogram
 	
 	'''
-	
+	start_time = time.time()	
 	P = np.array([X,Y,Z])	# Creating a coordinate map of points
 	num = X.size 			# Number of points
 	dist = np.array([])
+	print time.time()-start_time
 	if num%2==0:
 		for x in range (1,num/2+1):
 			P_prime = np.roll(P,x,axis=1)
@@ -36,12 +40,16 @@ def counter (X,Y,Z,dr):
 			sum_d = np.sum(d,axis=0)
 			if x!=num/2:dist = np.concatenate((dist,sum_d))
 			else: dist = np.concatenate((dist,sum_d[:-(num/2)]))
+			if x%100000==0: print x,time.time()-start_time
 	else:
 		for x in range (1,(num+1)/2):
 			P_prime = np.roll(P,x,axis=1)
 			d = (P-P_prime)**2
 			sum_d = np.sum(d,axis=0)
 			dist = np.concatenate((dist,sum_d))
+			if x%100000==0: print x,time.time()-start_time
+
+	dist = np.sqrt(dist)
 	bins = int(np.sqrt(3)*450/dr)
 	hist,edge = np.histogram(dist,bins,range=(0,np.sqrt(3)*450))	
 	return hist,edge
