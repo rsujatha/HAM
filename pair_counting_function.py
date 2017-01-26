@@ -52,10 +52,10 @@ def counter (X,Y,Z,dr):
 	hist,edge = np.histogram(dist,bins,range=(0,np.sqrt(3)*450))	
 	return hist,edge
 
-X = np.array([1,2,3,4,5])
-Y = np.array([6,7,8,9,0]) 
-Z = np.array([1,3,5,7,9])
-hist,edge = counter(X,Y,Z,0.1)
-
-plt.plot(edge[:-1],hist)
-plt.show()
+#~ X = np.array([1,2,3,4,5])
+#~ Y = np.array([6,7,8,9,0]) 
+#~ Z = np.array([1,3,5,7,9])
+#~ hist,edge = counter(X,Y,Z,0.1)
+#~ 
+#~ plt.plot(edge[:-1],hist)
+#~ plt.show()
