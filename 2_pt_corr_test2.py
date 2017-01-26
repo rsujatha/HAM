@@ -4,15 +4,16 @@
 
 import numpy as np
 import pair_counting_function as pcf
+import time
 M,L,X,Y,Z = np.loadtxt ('output_of_3_1.txt',unpack=True, skiprows=1)
-
+start_time = time.time()
 
 ## Box 1 - Right Face 			R
 sel_ind = np.where(X<=75)[0]  
 X1=X[sel_ind]+300
 Y1=Y[sel_ind]
 Z1=Z[sel_ind]
-
+print("--- %s seconds ---" % (time.time() - start_time))
 ## Box 2 - Left Face 			L
 sel_ind = np.where(X>=75)[0]  
 X2=X[sel_ind]-300
@@ -162,7 +163,7 @@ sel_ind = np.where((X>=75)&(Y>=75)&(Z<=75))[0]
 X26=X[sel_ind]-300
 Y26=Y[sel_ind]-300
 Z26=Z[sel_ind]+300
-
+print("--- %s seconds ---" % (time.time() - start_time))
 
 X_shell = np.concatenate((X1,X2,X3,X4,X5,X6,X7,X8,X9,X10,X11,X12,X13,X14,X15,X16,X17,X18,X19,X20,X21,X22,X23,X24,X25,X26))
 Y_shell = np.concatenate((Y1,Y2,Y3,Y4,Y5,Y6,Y7,Y8,Y9,Y10,Y11,Y12,Y13,Y14,Y15,Y16,Y17,Y18,Y19,Y20,Y21,Y22,Y23,Y24,Y25,Y26))
@@ -174,7 +175,8 @@ Y_all = np.concatenate((Y,Y_shell))
 Z_all = np.concatenate((Z,Z_shell))
 
 hist_all,edge_all = pcf.counter(X_all,Y_all,Z_all,0.1)
+print("--- %s seconds ---" % (time.time() - start_time))
 hist_sh,edge_sh = pcf.counter(X_shell,Y_shell,Z_shell,0.1)
-
+print("--- %s seconds ---" % (time.time() - start_time))
 plt.plot(edge_all[:-1],hist_all,'.')
 plt.show()
