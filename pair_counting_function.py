@@ -32,21 +32,15 @@ def counter (X,Y,Z,dr):
 	if num%2==0:
 		for x in range (1,num/2+1):
 			P_prime = np.roll(P,x,axis=1)
-			print P_prime
 			d = (P-P_prime)**2
-			print d
 			sum_d = np.sum(d,axis=0)
-			print sum_d , sum_d[:-(num/2)]
 			if x!=num/2:dist = np.concatenate((dist,sum_d))
 			else: dist = np.concatenate((dist,sum_d[:-(num/2)]))
 	else:
 		for x in range (1,(num+1)/2):
 			P_prime = np.roll(P,x,axis=1)
-			print P_prime
 			d = (P-P_prime)**2
-			print d
 			sum_d = np.sum(d,axis=0)
-			print sum_d , sum_d[:-(num/2)]
 			dist = np.concatenate((dist,sum_d))
 	bins = int(np.sqrt(3)*450/dr)
 	hist,edge = np.histogram(dist,bins,range=(0,np.sqrt(3)*450))	
