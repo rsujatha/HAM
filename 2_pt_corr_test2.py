@@ -13,6 +13,7 @@ sel_ind = np.where(X<=75)[0]
 X1=X[sel_ind]+300
 Y1=Y[sel_ind]
 Z1=Z[sel_ind]
+hist_core,edge_core = pcf.counter(X,Y,Z,0.1)
 print("--- %s seconds ---" % (time.time() - start_time))
 ## Box 2 - Left Face 			L
 sel_ind = np.where(X>=75)[0]  
@@ -174,9 +175,10 @@ X_all = np.concatenate((X,X_shell))
 Y_all = np.concatenate((Y,Y_shell))
 Z_all = np.concatenate((Z,Z_shell))
 
-hist_all,edge_all = pcf.counter(X_all,Y_all,Z_all,0.1)
+#hist_all,edge_all = pcf.counter(X_all,Y_all,Z_all,0.1)
 print("--- %s seconds ---" % (time.time() - start_time))
-hist_sh,edge_sh = pcf.counter(X_shell,Y_shell,Z_shell,0.1)
+#hist_sh,edge_sh = pcf.counter(X_shell,Y_shell,Z_shell,0.1)
 print("--- %s seconds ---" % (time.time() - start_time))
-plt.plot(edge_all[:-1],hist_all,'.')
+#plt.plot(edge_all[:-1],hist_all,'.')
+plt.plot(edge_core[:-1],hist_core,'.')
 plt.show()
