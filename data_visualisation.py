@@ -14,7 +14,7 @@ ax = fig.add_subplot(1,2,1, projection='3d')
 s = [float(n)/len(X) for n in range(len(X))]
 ax.scatter(X,Y,Z,'.',color='#a52a2a',s=0.03)
 ax.scatter(X,Y,Z,'.',color='y',s=L/2e13)
-ax.set_axis_bgcolor('black')
+ax.set_facecolor('black')
 ax.view_init(elev=30., azim=58)
 ax.w_xaxis.set_pane_color((0,0,0))
 ax.w_yaxis.set_pane_color((0,0,0))
@@ -26,7 +26,7 @@ ax.set_title('Galaxies in Dark Matter',color='white',rotation='vertical',x=1,y=1
 
 ax = fig.add_subplot(1,2,2, projection='3d')
 ax.scatter(X,Y,Z,'.',color='#a52a2a',s=0.03)
-ax.set_axis_bgcolor('black')
+ax.set_facecolor('black')
 ax.view_init(elev=30., azim=58)
 ax.w_xaxis.set_pane_color((0,0,0))
 ax.w_yaxis.set_pane_color((0,0,0))
