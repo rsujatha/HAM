@@ -4,7 +4,7 @@
 import numpy as np
 import matplotlib.pyplot as plt
 from mpl_toolkits.mplot3d import Axes3D
-
+import matplotlib.animation as animation
 
 M,L,X,Y,Z = np.loadtxt ('output_of_3_1.txt',unpack=True, skiprows=1)
 #L=np.sort(L)
@@ -34,9 +34,9 @@ ax.w_zaxis.set_pane_color((0,0,0))
 ax.tick_params(axis='x',colors='white')
 ax.tick_params(axis='y',colors='white')
 ax.tick_params(axis='z',colors='white')
-ax.set_title( 'Dark Matter',color='white',rotation='vertical',x=1,y=1)
-#for angle in range(0, 360):
-#    ax.view_init(30, angle)
-#    plt.draw()
-#    plt.pause(.001)
+ax.set_title( 'Dark Matter',color='white',rotation='vertical',x=0.8,y=1)
+for angle in range(0, 360):
+    ax.view_init(elev=30., azim=58+angle)
+    plt.draw()
+    plt.pause(.001)
 plt.show()
