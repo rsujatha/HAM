@@ -99,20 +99,43 @@ def counter_version2 (r,dr,X,Y,Z,n):
 	#~ print np.shape(considered_array)
 	#~ print p
 	x,y,z = 0,1,2
-	if (p[0]<=r or p[1]<=r or p[2]<=r) or (p[0]>=300-r or p[1]>=300-r or p[2]>=300-r):
+	if (p[x]<=r+dr or p[y]<=r+dr or p[z]<=r+dr) or (p[x]>=300-r-dr or p[y]>=300-r-dr or p[z]>=300-r-dr):
+		#~ DD=1
 		## Edge effects take place 
-	else:
-		## The point is well inside the cube and thus will give correct results directly
-		index = np.where((np.abs(c[x]-p[x])<r) & 
-						 (np.abs(c[y]-p[y])<r) &
-						 (np.abs(c[z]-p[z])<r))[0]
+		if p[x]<=r+dr:
+			ind = np.where(c[x]>300-(r+dr))[0]
+			c[x,ind]-=300
+		elif p[x]>=300-r-dr:
+			ind = np.where(c[x]<(r+dr))[0]
+			c[x,ind]+=300
+		if p[y]<=r+dr:
+			ind = np.where(c[y]>300-(r+dr))[0]
+			c[y,ind]-=300
+		elif p[y]>=300-r-dr:
+			ind = np.where(c[y]<(r+dr))[0]
+			c[y,ind]+=300
+		if p[z]<=r+dr:
+			ind = np.where(c[z]>300-(r+dr))[0]
+			c[z,ind]-=300
+		elif p[z]>=300-r-dr: 
+			ind = np.where(c[z]<(r+dr))[0]
+			c[z,ind]+=300
+		index = np.where((np.abs(c[x]-p[x])<r+dr) & 
+						 (np.abs(c[y]-p[y])<r+dr) &
+						 (np.abs(c[z]-p[z])<r+dr))[0]
 		sel_arr = c[:,index]
-		dist_array = np.linalg.norm(sel_arr-p,axis=)
-	DD=1
-	
+		dist_array = np.linalg.norm(sel_arr-p[:,None],axis=0)
+	else: 
+		## The point is well inside the cube and thus will give correct results directly
+		index = np.where((np.abs(c[x]-p[x])<r+dr) & 
+						 (np.abs(c[y]-p[y])<r+dr) &
+						 (np.abs(c[z]-p[z])<r+dr))[0]
+		sel_arr = c[:,index]
+		dist_array = np.linalg.norm(sel_arr-p[:,None],axis=0)
+	DD = (np.where((dist_array<r+dr) & (dist_array>=r))[0]).size
 	return DD
 X = np.array([1,2,3,4,5])
 Y = np.array([6,7,8,9,0]) 
 Z = np.array([1,3,5,7,9])
 
-#~ counter_version2(1,0.1,X,Y,Z,2)
+#~ print counter_version2(1,1,X,Y,Z,0)
