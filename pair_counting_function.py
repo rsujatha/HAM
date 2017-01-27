@@ -31,25 +31,32 @@ def counter (X,Y,Z,dr):
 	start_time = time.time()	
 	P = np.array([X,Y,Z])	# Creating a coordinate map of points
 	num = X.size 			# Number of points
-	dist = np.array([])
+	dist = np.zeros(num*(num-1)/2,dtype=int)
 	print time.time()-start_time
 	if num%2==0:
 		for x in range (1,num/2+1):
 			P_prime = np.roll(P,x,axis=1)
-			d = (P-P_prime)**2
-			sum_d = np.sum(d,axis=0)
-			if x!=num/2:dist = np.concatenate((dist,sum_d))
+			d = (P-P_prime)
+			sum_d = np.linalg.norm(d,axis=0)
+			if x!=num/2:dist = np.concatenate((dist,sum_d),axis=1)
 			else: dist = np.concatenate((dist,sum_d[:-(num/2)]))
-			if x%1000==0: print x,time.time()-start_time
+			if x%100==0: print x,time.time()-start_time
 	else:
 		for x in range (1,(num+1)/2):
 			P_prime = np.roll(P,x,axis=1)
-			d = (P-P_prime)**2
-			sum_d = np.sum(d,axis=0)
-			dist = np.concatenate((dist,sum_d))
-			if x%1000==0: print x,time.time()-start_time
+			d = (P-P_prime)
+			sum_d = np.linalg.norm(d,axis=0)
+			
+			#dist = np.concatenate((dist,sum_d),axis=1)
+			if x==1:
+				print np.shape(sum_d)
+				dist[((x-1)*num):(x*num)] = sum_d
+			else: 
+				#dist = np.vstack([dist,sum_d])#,axis=1)
+				dist[((x-1)*num):(x*num)] = sum_d
+			if x%100==0: print x,time.time()-start_time
 
-	dist = np.sqrt(dist)
+	#dist = np.sqrt(dist)
 	bins = int(np.sqrt(3)*450/dr)
 	hist,edge = np.histogram(dist,bins,range=(0,np.sqrt(3)*450))	
 	return hist,edge
