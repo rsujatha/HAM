@@ -61,13 +61,6 @@ def counter (X,Y,Z,dr):
 	hist,edge = np.histogram(dist,bins,range=(0,np.sqrt(3)*450))	
 	return hist,edge
 
-#~ X = np.array([1,2,3,4,5])
-#~ Y = np.array([6,7,8,9,0]) 
-#~ Z = np.array([1,3,5,7,9])
-#~ hist,edge = counter(X,Y,Z,0.1)
-#~ 
-#~ plt.plot(edge[:-1],hist)
-#~ plt.show()
 
 
 def counter_version2 (r,dr,X,Y,Z,n):
@@ -133,12 +126,6 @@ def counter_version2 (r,dr,X,Y,Z,n):
 		dist_array = np.linalg.norm(sel_arr-p[:,None],axis=0)
 	DD = (np.where((dist_array<r+dr) & (dist_array>=r))[0]).size
 	return DD
-X = np.array([1,2,3,4,5])
-Y = np.array([6,7,8,9,0]) 
-Z = np.array([1,3,5,7,9])
-
-#~ print counter_version2(1,1,X,Y,Z,0)
-
 
 def counter_version3 (X,Y,Z,dr):
 	
@@ -182,3 +169,16 @@ def counter_version3 (X,Y,Z,dr):
 			print "Iter No:",x,time.time()-T,"sec passed"
 			T=time.time()
 	return hist,edge
+
+
+#~ X = np.array([1,2,3,4,5])
+#~ Y = np.array([6,7,8,9,0]) 
+#~ Z = np.array([1,3,5,7,9])
+
+#~ hist,edge = counter(X,Y,Z,0.1)
+#~ 
+#~ plt.plot(edge[:-1],hist)
+#~ plt.show()
+
+#~ print counter_version2(1,1,X,Y,Z,0)
+
