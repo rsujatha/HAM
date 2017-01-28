@@ -138,3 +138,47 @@ Y = np.array([6,7,8,9,0])
 Z = np.array([1,3,5,7,9])
 
 #~ print counter_version2(1,1,X,Y,Z,0)
+
+
+def counter_version3 (X,Y,Z,dr):
+	
+	'''
+	
+	Takes the coordinates of the galaxies and computes distances between each pair 
+	and generates an histogram which is then returned
+	
+	Input:
+	-----------------
+	X				: X coordinate of the galaxy
+	Y				: Y coordinate of the galaxy
+	Z				: Z coordinate of the galaxy
+	dr				: Bin width of the histogram
+	
+	Output:
+	-----------------
+	hist			: Histogram of the distances between galaxies
+	edge			: Edges of the histogram
+	
+	
+	Note:
+	1) The code doesn't correct for the edge effects
+	2) The length of edges array is one more than histogram
+	
+	'''
+	T = time.time()	
+	P = np.array([X,Y,Z])	# Creating a coordinate map of points
+	num = X.size 			# Number of points
+	bins = int((75-0.2)/dr)
+	hist=np.zeros(bins)
+	
+	for x in range(1,230000):
+		P_prime = np.roll(P,-x,axis=1)
+		d = (P-P_prime)
+		sum_d = np.linalg.norm(d,axis=0)
+		hist1,edge = np.histogram(sum_d,bins,range=(0.2,75))	
+		hist+=hist1
+		if x%1000==0:
+			
+			print "Iter No:",x,time.time()-T,"sec passed"
+			T=time.time()
+	return hist,edge
