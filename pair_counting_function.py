@@ -94,13 +94,12 @@ def counter_version2 (r,dr,X,Y,Z,n):
 	'''
 	
 	P = np.array([X,Y,Z])
-	p = P[:,n]
+	p = P[:,n]				## Coordinates of the point in consideration. The (small) cube is made around this point
 	c = P[:,n+1:]			## Shortened array
 	#~ print np.shape(considered_array)
 	#~ print p
 	x,y,z = 0,1,2
 	if (p[x]<=r+dr or p[y]<=r+dr or p[z]<=r+dr) or (p[x]>=300-r-dr or p[y]>=300-r-dr or p[z]>=300-r-dr):
-		#~ DD=1
 		## Edge effects take place 
 		if p[x]<=r+dr:
 			ind = np.where(c[x]>300-(r+dr))[0]
