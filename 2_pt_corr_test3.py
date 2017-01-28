@@ -42,4 +42,4 @@ print 'DD\t:',DD
 RR = 4*pi*r**2*dr 				# originally the formula is RR = 4*pi*r**3*d(ln (r)), d () being differential operator
 print 'RR\t:',RR
 
-print r'\eta for r = {}'.format(r),'\t:',DD/RR-1
+print r'\xi for r = {}'.format(r),'\t:',DD/RR-1
