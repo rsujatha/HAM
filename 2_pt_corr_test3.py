@@ -5,8 +5,10 @@ from joblib import Parallel, delayed
 import multiprocessing as mpg
 
 
-parallelise = True
-#~ parallelise = False
+#~ parallelise = True
+parallelise = False
+
+pi = np.pi
 
 start_time = time.time()
 init_time = time.time()
@@ -16,7 +18,7 @@ print 'Data loaded\nTime taken\t:',time.time()-start_time
 start_time = time.time()
 
 r_all 	= [0.2,5,6,75]
-r 		= r_all[1]
+r 		= r_all[2]
 dr 		= 0.1
 DD 		= 0
 skip	= 1000				# Number of iteration to skip before printing timing info
