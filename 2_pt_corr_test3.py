@@ -36,6 +36,7 @@ else:
 	#~ print res 
 	DD = np.sum(res)
 #~ print DD
+DD/=X.size
 print "Completed\nTime for entire operation is\t:",time.time()-init_time
 print 'DD\t:',DD
 
