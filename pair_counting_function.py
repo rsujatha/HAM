@@ -159,13 +159,15 @@ def counter_version3 (X,Y,Z,dr):
 	hist=np.zeros(bins)
 	
 	for x in range(1,230000):
-		P_prime = np.roll(P,-x,axis=1)
-		d = (P-P_prime)
+		#~ P_prime = np.roll(P,-x,axis=1)
+		#~ d = (P-P_prime)
+		temp_1 = P[:,:-x]
+		temp_2 = P[:,x:]
+		d = temp_1-temp_2
 		sum_d = np.linalg.norm(d,axis=0)
 		hist1,edge = np.histogram(sum_d,bins,range=(0.2,75))	
 		hist+=hist1
 		if x%1000==0:
-			
 			print "Iter No:",x,time.time()-T,"sec passed"
 			T=time.time()
 	return hist,edge
