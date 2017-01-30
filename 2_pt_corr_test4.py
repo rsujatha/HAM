@@ -176,17 +176,33 @@ X_all = np.concatenate((X,X_shell))
 Y_all = np.concatenate((Y,Y_shell))
 Z_all = np.concatenate((Z,Z_shell))
 
-ind=np.argsort(X_shell)
-X_shell1=X_shell[ind]
-Y_shell1=Y_shell[ind]
-Z_shell1=Z_shell[ind]
-
+#~ ind=np.argsort(X_shell)
+#~ X_shell1=X_shell[ind]
+#~ Y_shell1=Y_shell[ind]
+#~ Z_shell1=Z_shell[ind]
+#~ 
 ind=np.argsort(X_all)
 X_all1=X_all[ind]
 Y_all1=Y_all[ind]
 Z_all1=Z_all[ind]
 
+d = np.linalg.norm([X_all1,Y_all1,Z_all1],axis=0)
+plt.plot(d,'.')
+plt.plot(X_all1,'.r')
 
+#~ plt.show()
+plt.clf()
+X_int,Y_int,Z_int = np.floor ([X_all*10,Y_all*10,Z_all*10])
+ind  = np.lexsort((X_int,Y_int,Z_int))
+
+X_all1=X_all[ind]
+Y_all1=Y_all[ind]
+Z_all1=Z_all[ind]
+
+d = np.linalg.norm([X_all1,Y_all1,Z_all1],axis=0)
+plt.plot(d,'.')
+#~ plt.show()
+plt.clf()
 dr=0.1
 print "start:",time.time()-begin
 #####looping###########
@@ -197,7 +213,11 @@ hist_all,edge= pcf.counter_version3(X_all1,Y_all1,Z_all1,dr)
 #print "hist all",time.time()-begin
 #hist_sumall=np.sum(hist_all,axis=0)
 #print "sum all:",time.time()-begin
-hist_shell,edge=pcf.counter_version3(X_shell1,Y_shell1,Z_shell1,dr)
+
+
+#~ hist_shell,edge=pcf.counter_version3(X_shell1,Y_shell1,Z_shell1,dr)
+
+
 #print "hist shell:",time.time()-begin
 #hist_sumshell=np.sum(hist_shell,axis=0)
 #print "summ shell",time.time()-begin
@@ -210,11 +230,11 @@ plt.plot(edge[:-1],hist_all-hist_shell,'.')
 plt.show()
 
 DD=hist_all-hist_shell
-DD/=X.size
+DD/=(X.size*(X.size-1)/2)
 
 #print 'DD\t:',DD
 r=edge[:-1]
-RR = 4*pi*r**2*dr 				# originally the formula is RR = 4*pi*r**3*d(ln (r)), d () being differential operator
+RR = (4*pi*r**2*dr)/300**3 				# originally the formula is RR = 4*pi*r**3*d(ln (r)), d () being differential operator
 print 'RR\t:',RR
 Xi=DD/RR-1
 np.savetxt('Xi.txt',np.transpose([Xi]),fmt=['%.6f'])
