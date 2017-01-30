@@ -48,11 +48,13 @@ lumi_for_all = np.interp(Mass,Mass_match,Luminosity_match)
 #Mass_match
 plt.plot(Mass_match,Luminosity_match,'.r')
 #plt.xscale('log')
-plt.plot(Mass,lumi_for_all,'.g')
+#~ plt.plot(Mass,lumi_for_all,'.r')
 plt.yscale('log')
 plt.ylabel('Luminosity')
 plt.xlabel('Halo Mass')
-#plt.show()
+plt.savefig ('Mass_lum_calc.pdf')
+plt.show()
+
 plt.clf()
 
 ### Saving the Output file for use in next part
