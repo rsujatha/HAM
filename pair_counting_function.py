@@ -205,15 +205,15 @@ def counter_version4 (dr,X,Y,Z,n):
 	index = np.where(((np.abs(c[x]-p[x])<75) | (np.abs(c[x]-p[x])>225)) & 
 					((np.abs(c[y]-p[y])<75) | (np.abs(c[y]-p[y])>225)) & 
 					((np.abs(c[z]-p[z])<75) | (np.abs(c[z]-p[z])>225)) ) [0]
-	if n%1000==0: print 'time for finding the small cube', time.time()-start_time
+	if n%1000==0: print 'time for finding the small cube for 1000 iter', (time.time()-start_time )*1000
 	sel_arr = c[:,index]
 	start_time = time.time()
 	dist_array = np.linalg.norm(sel_arr-p[:,None],axis=0)
-	if n%1000==0: print 'time for computing distance', time.time()-start_time
+	if n%1000==0: print 'time for computing distance for 1000 iter', (time.time()-start_time )*1000
 	bins = int((75-0.2)/dr)
 	start_time = time.time()
 	hist, edge =  np.histogram(dist_array,bins,range = (0.2,75))
-	if n%1000==0: print 'time for finding the small cube', time.time()-start_time
+	if n%1000==0: print 'time for making histogram for 1000 iter', (time.time()-start_time )*1000
 
 	return hist,edge
 
