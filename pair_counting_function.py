@@ -195,20 +195,26 @@ def counter_version4 (dr,X,Y,Z,n):
 	
 	
 	'''
-	
 	P = np.array([X,Y,Z])
 	p = P[:,n]				## Coordinates of the point in consideration. The (small) cube is made around this point
 	c = P[:,n+1:]			## Shortened array
 	#~ print np.shape(considered_array)
 	#~ print p
 	x,y,z = 0,1,2
+	start_time = time.time()
 	index = np.where(((np.abs(c[x]-p[x])<75) | (np.abs(c[x]-p[x])>225)) & 
 					((np.abs(c[y]-p[y])<75) | (np.abs(c[y]-p[y])>225)) & 
 					((np.abs(c[z]-p[z])<75) | (np.abs(c[z]-p[z])>225)) ) [0]
+	if n%1000==0: print 'time for finding the small cube', time.time()-start_time
 	sel_arr = c[:,index]
+	start_time = time.time()
 	dist_array = np.linalg.norm(sel_arr-p[:,None],axis=0)
+	if n%1000==0: print 'time for computing distance', time.time()-start_time
 	bins = int((75-0.2)/dr)
+	start_time = time.time()
 	hist, edge =  np.histogram(dist_array,bins,range = (0.2,75))
+	if n%1000==0: print 'time for finding the small cube', time.time()-start_time
+
 	return hist,edge
 
 
