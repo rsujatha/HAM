@@ -202,39 +202,11 @@ def counter_version4 (dr,X,Y,Z,n):
 	#~ print np.shape(considered_array)
 	#~ print p
 	x,y,z = 0,1,2
-	if (p[x]<=75 or p[y]<=75 or p[z]<=75) or (p[x]>=225 or p[y]>=225 or p[z]>=225):
-		## Edge effects take place 
-		if p[x]<=75:
-			ind = np.where(c[x]>225)[0]
-			c[x,ind]-=300
-		elif p[x]>=225:
-			ind = np.where(c[x]<(75))[0]
-			c[x,ind]+=300
-		if p[y]<=75:
-			ind = np.where(c[y]>225)[0]
-			c[y,ind]-=300
-		elif p[y]>=225:
-			ind = np.where(c[y]<(75))[0]
-			c[y,ind]+=300
-		if p[z]<=75:
-			ind = np.where(c[z]>225)[0]
-			c[z,ind]-=300
-		elif p[z]>=225: 
-			ind = np.where(c[z]<(75))[0]
-			c[z,ind]+=300
-		index = np.where((np.abs(c[x]-p[x])<75) & 
-						 (np.abs(c[y]-p[y])<75) &
-						 (np.abs(c[z]-p[z])<75))[0]
-		sel_arr = c[:,index]
-		dist_array = np.linalg.norm(sel_arr-p[:,None],axis=0)
-	else: 
-		## The point is well inside the cube and thus will give correct results directly
-		index = np.where((np.abs(c[x]-p[x])<75) & 
-						 (np.abs(c[y]-p[y])<75) &
-						 (np.abs(c[z]-p[z])<75))[0]
-		sel_arr = c[:,index]
-		dist_array = np.linalg.norm(sel_arr-p[:,None],axis=0)
-	#~ DD = (np.where((dist_array<r+dr) & (dist_array>=r))[0]).size
+	index = np.where(((np.abs(c[x]-p[x])<75) | (np.abs(c[x]-p[x])>225)) & 
+					((np.abs(c[y]-p[y])<75) | (np.abs(c[y]-p[y])>225)) & 
+					((np.abs(c[z]-p[z])<75) | (np.abs(c[z]-p[z])>225)) ) [0]
+	sel_arr = c[:,index]
+	dist_array = np.linalg.norm(sel_arr-p[:,None],axis=0)
 	bins = int((75-0.2)/dr)
 	hist, edge =  np.histogram(dist_array,bins,range = (0.2,75))
 	return hist,edge
