@@ -8,7 +8,7 @@ start_time = time.time()
 	
 # loading text
 mags = np.loadtxt ('abs_mag_data.txt')
-X,Y,Z,Mass= np.loadtxt ('x_y_z_m_sim_selected.txt',unpack=True, skiprows=1)
+X,Y,Z,Mass= np.loadtxt ('x1_y1_z1_m_sim_selected.txt',unpack=True, skiprows=1)
 
 #sorting in increasing order
 luminosity = np.sort(10**(-(mags-4.77)/2.5))		# In unit of Solar luminosity
