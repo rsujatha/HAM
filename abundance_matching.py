@@ -27,13 +27,6 @@ plt.xlabel('Halo Mass')
 #plt.show()
 plt.clf()
 
-plt.plot(luminosity,luminosityFunction)
-plt.xlabel('Luminosity')
-#plt.gca().invert_xaxis()
-plt.xscale('log')
-plt.title('Luminosity Function cdf')
-#plt.show()
-plt.clf()
 
 
 # Interpolating for a uniform Luminosity binning
@@ -47,13 +40,13 @@ lumi_for_all = np.interp(Mass,Mass_match,Luminosity_match)
 
 #Mass_match
 plt.plot(Mass_match,Luminosity_match,'.r')
-#plt.xscale('log')
+plt.xscale('log')
 #~ plt.plot(Mass,lumi_for_all,'.r')
 plt.yscale('log')
 plt.ylabel('Luminosity')
 plt.xlabel('Halo Mass')
 plt.savefig ('Mass_lum_calc.pdf')
-plt.show()
+#~ plt.show()
 
 plt.clf()
 
@@ -62,3 +55,42 @@ np.savetxt('output_of_3_1.txt',np.transpose([Mass,lumi_for_all,X,Y,Z]), fmt = ['
 
 
 print("--- %s seconds ---" % (time.time() - start_time))
+lumi_for_all_sort=np.sort(lumi_for_all)
+luminosityFunction_SanityCheck=np.arange(lumi_for_all_sort.size)/float(lumi_for_all_sort.size)
+
+plt.plot(luminosity,luminosityFunction,label="Cdf from Yang Data")
+plt.plot(lumi_for_all_sort,luminosityFunction_SanityCheck,"r.",markersize=0.02,label="Cdf from Matched Luminosity")
+plt.xlabel('Luminosity')
+plt.ylabel('Cumulative Distribution Function')
+#plt.gca().invert_xaxis()
+#plt.xscale('log')
+plt.legend()
+plt.title('Cumulative Distribution Function of Yang Data and Matched Mock Luminosity ')
+plt.savefig('SanityCheck.pdf')
+#~ plt.show()
+plt.clf()
+#~ bins=np.linspace(min(np.log(luminosity)),max(np.log(luminosity)),10)
+bins=50000
+hist_yang,edge_yang=np.histogram(np.log(luminosity),bins)
+hist_mock,edge_mock=np.histogram(np.log(lumi_for_all_sort),bins)
+
+bin_yang = edge_yang[1:]-edge_yang[:-1]
+bin_mock = edge_mock[1:]-edge_mock[:-1]
+plt.plot(10**edge_yang[:-1],hist_yang/(191)**3/bin_yang,'g',label='Yang Data')
+plt.plot(10**edge_mock[:-1],hist_mock/(300)**3/bin_mock,'r.',label='Mock Galaxy Data')
+plt.xscale('log')
+plt.xlabel('Luminosity')
+plt.ylabel(r'Normalised number density of galaxies (in $(h^{-1}Mpc)^{-3}$ $(ln (L))^{-1}$) ')
+plt.legend()
+plt.title('Luminosity function')
+plt.savefig('Histogram_SanityCheck.pdf')
+plt.show()
+
+
+
+
+
+
+
+
+
