@@ -22,10 +22,16 @@ r 		= r_all[2]
 dr 		= 0.1
 DD 		= 0
 skip	= 1000				# Number of iteration to skip before printing timing info
+
+bins = int((75-0.2)/dr)
+hist=np.zeros(bins)
+
 if not(parallelise):
 	print '---------------Not parallelising-------------------'
 	for n in range (X.size):			#Put X.size later
-		DD += pcf.counter_version2(r,dr,X,Y,Z,n)
+		#~ DD += pcf.counter_version2(r,dr,X,Y,Z,n)
+		hist_temp,edge = pcf.counter_version4(dr,X,Y,Z,n)
+		hist+= hist_temp
 		if n%skip==0:
 			print "Running loops {} iterations done,\nTime for prev {} run is\t:".format(n,skip),time.time()-start_time
 			start_time = time.time()
