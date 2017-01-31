@@ -1,12 +1,16 @@
 import numpy as np
 import pair_counting_function as pcf
 import time
-from joblib import Parallel, delayed
-import multiprocessing as mpg
+
+
 
 
 #~ parallelise = True
 parallelise = False
+
+if parallelise: 
+	from joblib import Parallel, delayed
+	import multiprocessing as mpg
 
 pi = np.pi
 
