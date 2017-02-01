@@ -2,6 +2,10 @@ from __future__ import division
 import numpy as np
 import matplotlib.pyplot as plt
 
+from matplotlib import rc
+rc('text',usetex=True)
+rc('font',**{'family':'serif','serif':['Computer Modern']} )
+
 def two_pt_distance(r,dr,X,Y,Z):
 	'''
 	
@@ -36,4 +40,4 @@ for r in r_array:
 	
 	RR = 4*pi*r**2*dr 		# originally the formula is RR = 4*pi*r**3*d(ln (r)), d () being differential operator
 	DD = two_pt_distance(r,dr,X,Y,Z)
-	chi = DD/RR-1
+	xi = DD/RR-1
