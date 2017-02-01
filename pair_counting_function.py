@@ -166,11 +166,6 @@ def counter_version3 (X,Y,Z,dr):
 		Z_diff = np.minimum(Z_diff,300-Z_diff) 
 		sum_d = np.sqrt(X_diff**2 + Y_diff**2 + Z_diff**2)
 		index=np.where(sum_d<=75)[0]
-		#sum_d=np.sqrt(np.sum((diff)**2,axis=0))
-		#temp_1 = P[:,:-x]
-		#temp_2 = P[:,x:]
-		#d = (temp_1-temp_2)**2
-		#sum_d=np.sqrt(np.sum(d,axis=0))
 		hist1,edge = np.histogram(sum_d[index],bins,range=(0.2,75))
 		hist+=hist1
 		if x%1000==0:
