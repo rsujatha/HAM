@@ -293,5 +293,4 @@ def counter_version5 (dr,X,Y,Z,n):
 #~ plt.plot(edge[:-1],hist)
 #~ plt.show()
 
-#~ print counter_version2(1,1,X,Y,Z,0)
 
