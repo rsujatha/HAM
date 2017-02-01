@@ -46,11 +46,15 @@ else:
 	#~ print res 
 	DD = np.sum(res)
 #~ print DD
-DD/=X.size
 print "Completed\nTime for entire operation is\t:",time.time()-init_time
-print 'DD\t:',DD
-
-RR = 4*pi*r**2*dr 				# originally the formula is RR = 4*pi*r**3*d(ln (r)), d () being differential operator
+DD = hist
+DD/=(X.size*(X.size-1))/2
+#print "Completed\nTime for entire operation is\t:",time.time()-init_time
+#print 'DD\t:',DD
+np.savetxt ('hist_test3_0_1.txt', np.transpose(hist,edge[:-1]), fmt=['%.6f','%.6f'])
+RR = 4*pi*edge[:-1]**2*dr 				# originally the formula is RR = 4*pi*r**3*d(ln (r)), d () being differential operator
 print 'RR\t:',RR
 
-print r'\xi for r = {}'.format(r),'\t:',DD/RR-1
+Xi = DD/RR-1
+
+np.savetxt('xi_test3.txt',np.transpose(Xi),fmt='%.6f')

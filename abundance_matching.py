@@ -3,9 +3,14 @@ import numpy as np
 import matplotlib.pyplot as plt
 import time
 
+from matplotlib import rc
+rc('text',usetex=True)
+rc('font',**{'family':'serif','serif':['Computer Modern']} )
+
+
 start_time = time.time()
 
-	
+
 # loading text
 mags = np.loadtxt ('abs_mag_data.txt')
 X,Y,Z,Mass= np.loadtxt ('x1_y1_z1_m_sim_selected.txt',unpack=True, skiprows=1)
