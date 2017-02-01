@@ -173,9 +173,9 @@ def counter_version3 (X,Y,Z,dr):
 		#sum_d=np.sqrt(np.sum(d,axis=0))
 		hist1,edge = np.histogram(sum_d,bins,range=(0.2,75))
 		hist+=hist1
-		#if x%1000==0:
-		#	print "Iter No:",x,time.time()-T,"sec passed"
-		#	T=time.time()
+		if x%1000==0:
+			print "Iter No:",x,time.time()-T,"sec passed"
+			T=time.time()
 	return hist,edge
 
 def counter_version4 (dr,X,Y,Z,n):
