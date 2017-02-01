@@ -25,7 +25,7 @@ r_all 	= [0.2,5,6,75]
 r 		= r_all[2]
 dr 		= 0.1
 DD 		= 0
-skip	= 1000				# Number of iteration to skip before printing timing info
+skip	= 10000				# Number of iteration to skip before printing timing info
 
 bins = int((75-0.2)/dr)
 hist=np.zeros(bins)
@@ -37,6 +37,7 @@ if not(parallelise):
 		hist_temp,edge = pcf.counter_version4(dr,X,Y,Z,n)
 		hist+= hist_temp
 		if n%skip==0:
+			print "Number of points accumulated in 100th bin", hist[99]
 			print "Running loops {} iterations done,\nTime for prev {} run is\t:".format(n,skip),time.time()-start_time
 			start_time = time.time()
 else:
@@ -51,9 +52,9 @@ DD = hist
 DD/=(X.size*(X.size-1))/2
 #print "Completed\nTime for entire operation is\t:",time.time()-init_time
 #print 'DD\t:',DD
-np.savetxt ('hist_test3_0_1.txt', np.transpose(hist,edge[:-1]), fmt=['%.6f','%.6f'])
-RR = 4*pi*edge[:-1]**2*dr 				# originally the formula is RR = 4*pi*r**3*d(ln (r)), d () being differential operator
-print 'RR\t:',RR
+np.savetxt ('hist_test3_0_1.txt', np.transpose([hist,edge[:-1]]), fmt=['%.6f','%.6f'])
+RR = 4*pi*(edge[:-1])**2*dr/(300)**3 				# originally the formula is RR = 4*pi*r**3*d(ln (r)), d () being differential operator
+#print 'RR\t:',RR
 
 Xi = DD/RR-1
 
