@@ -264,10 +264,12 @@ def counter_version5 (dr,X,Y,Z,n):
 	del_x = np.abs(c[x]-p[x])
 	del_y = np.abs(c[y]-p[y])
 	del_z = np.abs(c[z]-p[z])
-	del_x = np.minimum(del_x,np.abs(del_x-300))
-	del_y = np.minimum(del_y,np.abs(del_y-300))
-	del_z = np.minimum(del_z,np.abs(del_z-300))
-	skip=10000
+	del_x = np.minimum(del_x,300-del_x)
+	del_y = np.minimum(del_y,300-del_y)
+	del_z = np.minimum(del_z,300-del_z)
+	skip=1000
+	if n%skip==0: print 'time for correcting the periodic cond for {} iter'.format(skip), (time.time()-start_time )*skip
+	start_time = time.time()
 	index = np.where(((del_x<75)) & 
 					((del_y<75)) & 
 					((del_z<75)) ) [0]
