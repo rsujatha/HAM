@@ -17,7 +17,7 @@ for lum_lim in luminosity:
 	Y_new=Y[index]
 	Z_new=Z[index]
 	M_new=M[index]
-	string='mockgalaxySubset_M<_'+str(mags[i])+'.txt'
+	string='mockgalaxySubset_M_less_than_'+str(mags[i])+'.txt'
 	np.savetxt(string,np.transpose([M_new,L_new,X_new,Y_new,Z_new]), fmt = ['%.6e','%.6e','%.6e','%.6e','%.6e'],header='Mass in h-1M_sun\tLuminosity in L_sun\tX in h-1Mpc\tY in h-1Mpc \tZ in h-1Mpc')
 	print string," created"
 	print "Sanity Check: Luminosity limit is:",str(luminosity[i])," and Luminosity minimum of saved txt is:",np.min(L_new)
