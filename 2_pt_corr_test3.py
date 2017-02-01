@@ -25,7 +25,7 @@ r_all 	= [0.2,5,6,75]
 r 		= r_all[2]
 dr 		= 0.1
 DD 		= 0
-skip	= 10000				# Number of iteration to skip before printing timing info
+skip	= 1000			# Number of iteration to skip before printing timing info
 
 bins = int((75-0.2)/dr)
 hist=np.zeros(bins)
