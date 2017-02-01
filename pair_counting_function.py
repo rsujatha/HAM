@@ -126,7 +126,6 @@ def counter_version2 (r,dr,X,Y,Z,n):
 		dist_array = np.linalg.norm(sel_arr-p[:,None],axis=0)
 	DD = (np.where((dist_array<r+dr) & (dist_array>=r))[0]).size
 	return DD
-
 def counter_version3 (X,Y,Z,dr):
 	
 	'''
@@ -158,14 +157,20 @@ def counter_version3 (X,Y,Z,dr):
 	bins = int((75-0.2)/dr)
 	hist=np.zeros(bins)
 	
-	for x in range(1,230000):
-		#~ P_prime = np.roll(P,-x,axis=1)
-		#~ d = (P-P_prime)
-		temp_1 = P[:,:-x]
-		temp_2 = P[:,x:]
-		d = (temp_1-temp_2)**2
-		sum_d=np.sqrt(np.sum(d,axis=0))
-		#sum_d = np.linalg.norm(d,axis=0)
+	for x in range(0,len(X)):
+		X_diff = np.abs(X[x]-X[x+1:])
+		Y_diff = np.abs(Y[x]-Y[x+1:])
+		Z_diff = np.abs(Z[x]-Z[x+1:])
+		X_diff = np.minimum(X_diff,np.abs(300-X_diff))
+		Y_diff = np.minimum(Y_diff,np.abs(300-Y_diff))
+		Z_diff = np.minimum(Z_diff,np.abs(300-Z_diff)) 
+		sum_d=np.sqrt(X_diff**2+Y_diff**2+Z_diff**2)
+		#sum_d=np.sqrt(np.sum((diff)**2,axis=0))
+		
+		#temp_1 = P[:,:-x]
+		#temp_2 = P[:,x:]
+		#d = (temp_1-temp_2)**2
+		#sum_d=np.sqrt(np.sum(d,axis=0))
 		hist1,edge = np.histogram(sum_d,bins,range=(0.2,75))
 		hist+=hist1
 		#if x%1000==0:
