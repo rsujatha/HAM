@@ -173,7 +173,7 @@ def counter_version3 (X,Y,Z,dr):
 			T=time.time()
 	return hist,edge
 
-def counter_version4 (dr,X,Y,Z,n):
+def counter_version4 (dr,X,Y,Z,n,chatter):
 	
 	'''
 	
@@ -187,6 +187,7 @@ def counter_version4 (dr,X,Y,Z,n):
 	Y					: Y coordinates of all the points
 	Z					: Z coordinates of all the points
 	n					: Index number of the point to be computed for
+	chatter				: Boolean variable to determine whether running info is to be printed 
 	
 	Output:
 	---------------------
@@ -212,21 +213,21 @@ def counter_version4 (dr,X,Y,Z,n):
 	index = np.where(((del_x<75)) & 
 					((del_y<75)) & 
 					((del_z<75)) ) [0]
-	if n%skip==0: print 'time for finding the small cube for {} iter'.format(skip), (time.time()-start_time )*skip
+	if n%skip==0 and chatter: print 'time for finding the small cube for {} iter'.format(skip), (time.time()-start_time )*skip
 	#sel_arr = c[:,index]
 	start_time = time.time()
 	#~ dist_array = np.linalg.norm(sel_arr-p[:,None],axis=0)
 	dist_array = np.sqrt( del_x[index]**2+del_y[index]**2+del_z[index]**2)
 	#dist_array = np.sqrt( del_x**2+del_y**2+del_z**2)
-	if n%skip==0: print 'time for computing distance for {} iter'.format(skip), (time.time()-start_time )*skip
+	if n%skip==0 and chatter: print 'time for computing distance for {} iter'.format(skip), (time.time()-start_time )*skip
 	bins = int((75-0.2)/dr)
 	start_time = time.time()
 	hist, edge =  np.histogram(dist_array,bins,range = (0.2,75))
-	if n%skip==0: print 'time for making histogram for {} iter'.format(skip), (time.time()-start_time )*skip
+	if n%skip==0 and chatter: print 'time for making histogram for {} iter'.format(skip), (time.time()-start_time )*skip
 
 	return hist,edge
 
-def counter_version5 (dr,X,Y,Z,n):
+def counter_version5 (dr,X,Y,Z,n,chatter):
 	
 	'''
 	
@@ -241,7 +242,8 @@ def counter_version5 (dr,X,Y,Z,n):
 	Y					: Y coordinates of all the points
 	Z					: Z coordinates of all the points
 	n					: Index number of the point to be computed for
-	
+	chatter				: Boolean variable to determine whether running info is to be printed
+	 
 	Output:
 	---------------------
 	hist				: Histogram of the distances between 'n' and other galaxies
