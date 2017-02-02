@@ -11,6 +11,18 @@ To get the shortened data just run following commands sequentially
 
 NOTE: above commands assume that yang* file and out* file is already present in the current directory
 
+The SDSS is a magnitude limited survey. Hence the number density of the 
+yang data must be the observed density which is likely to be less than 
+the true density. Since we assume monotic relation between Galaxy Luminosity
+and Halo mass, the largest halo would match with highest luminosity and the smallest mass 
+would not have observationally visible luminosities to match with. 
+ 
+ Solution: We chop off lower halo masses to match the density of observational data.
+ 
+ 
+To match simulation and observation density run	the following command
+
+"python density_range_sorting.py"
 
 To generate the output file for Part 3.1 run following command
 
@@ -19,8 +31,8 @@ To generate the output file for Part 3.1 run following command
 This generates a text file with columns "Mass Luminosity X Y Z" in respective units 
 (This is different order as compared to the temp files generated in previous python codes)
 
-
-Running the 2_pt_corr_test*.py files:
+-------------------------------------
+Description of the 2_pt_corr_test*.py files:
 -------------------------------------
 
 
@@ -31,11 +43,29 @@ the way yo compute the distance between the points
 and corrects for the edge effects in a robust manner. Sadly, the code is highly 
 unoptimised and causes memory error as the number of pairs are simply too huge
 
-3) 2_pt_corr_test3.py is a better code as in reduces the points considered 
-for distance computation based on 'r'. For a given r and dr the code runs 
-in about 2-3 hrs. 
+3) 2_pt_corr_test3.py is a modification of test2 by directly obtainig
+histogram after every iteration. It also accounts for periodic boundary condition.
 
-3.5) "Code by Sujatha (Not added to git)": It is a revised version of the 2_pt_corr_test2.py 
-in which instead of all points, the points which lie <75 Mpc are only considered.
-This code computes a histogram from 0 to 75 Mpc, with required binning. 
-Takes about 3-4 hrs on her laptop
+4) 2_pt_corr_test4.py another version to try out various optimisation.  
+
+--------------------------------------
+
+To check the code indeed gives 2 pt correlation we compute Xi(r) for randomly distributed points.
+To do this test run the following command.
+"python Xi_test.py"
+
+
+For generating different subsets of the mock catalog run the following command
+
+"python Generating_Subsets_Of_Mock_Galaxy_Catalog.py"
+
+At this point we can run the 2 pt correlation on each of the Subsets of Mock Catalog
+This can be currently done by running 
+
+"python 2_pt_corr_test4.py"      Needs refinement of bin size
+
+To plot the estimator Vs distance in log scale run the following command
+
+"python final.py"
+
+
