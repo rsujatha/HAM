@@ -43,7 +43,7 @@ the way yo compute the distance between the points
 and corrects for the edge effects in a robust manner. Sadly, the code is highly 
 unoptimised and causes memory error as the number of pairs are simply too huge
 
-3) 2_pt_corr_test3.py is a modification of test2 by directly obtainig
+3) 2_pt_corr_test3.py is a modification of test2 by directly obtaining
 histogram after every iteration. It also accounts for periodic boundary condition.
 
 4) 2_pt_corr_test4.py another version to try out various optimisation.  
@@ -62,7 +62,9 @@ For generating different subsets of the mock catalog run the following command
 At this point we can run the 2 pt correlation on each of the Subsets of Mock Catalog
 This can be currently done by running 
 
-"python 2_pt_corr_test4.py"      Needs refinement of bin size
+"python 2_pt_corr_test4.py" or "python 2_point_correlation_final.py"     ####Needs refinement of bin size
+
+In 2_point_correlation_final.py, the terminal output can be limited by changing the variable 'chatter' to False
 
 To plot the estimator Vs distance in log scale run the following command
 
