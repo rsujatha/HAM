@@ -74,10 +74,10 @@ plt.title('Cumulative Distribution Function of Yang Data and Matched Mock Lumino
 plt.savefig('Cdf_SanityCheck.pdf')
 plt.show()
 plt.clf()
-#~ bins=np.linspace(min(np.log(luminosity)),max(np.log(luminosity)),10)
+#~ bins=np.linspace(min(np.log10(luminosity)),max(np.log10(luminosity)),10)
 bins=20
-hist_yang,edge_yang=np.histogram(np.log(luminosity),bins)
-hist_mock,edge_mock=np.histogram(np.log(lumi_for_all_sort),bins)
+hist_yang,edge_yang=np.histogram(np.log10(luminosity),bins)
+hist_mock,edge_mock=np.histogram(np.log10(lumi_for_all_sort),bins)
 
 bin_yang = edge_yang[1:]-edge_yang[:-1]
 bin_mock = edge_mock[1:]-edge_mock[:-1]
@@ -89,7 +89,7 @@ plt.ylabel(r'Normalised number density of galaxies (in $(h^{-1}Mpc)^{-3}$ $(ln (
 plt.legend()
 plt.title('Luminosity function')
 plt.savefig('Histogram_SanityCheck.pdf')
-plt.show()
+plt.show()d
 
 
 
