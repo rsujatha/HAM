@@ -4,7 +4,8 @@ import time
 import glob
 
 
-dr 		= 0.1
+#~ dr 	= 0.1
+dr 	= float(raw_input("Enter the value of dr:\t"))
 pi = np.pi
 bins = int((75-0.2)/dr)
 hist=np.zeros(bins)
