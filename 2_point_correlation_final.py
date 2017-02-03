@@ -5,10 +5,13 @@ import glob
 
 
 #~ dr 	= 0.1
-dr 	= float(raw_input("Enter the value of dr:\t"))
+bin_num	= float(raw_input("Enter the value of number of logarithmic bins:\t"))
+
+### using logarithmic binning in dr 
+bins = np.exp(np.linspace(np.log(0.2),np.log(75),bin_num))
 pi = np.pi
-bins = int((75-0.2)/dr)
-hist=np.zeros(bins)
+#~ bins = int((75-0.2)/dr)
+hist=np.zeros(bins.size-1)
 
 chatter = True 			# Put Chatter True if want more output (like timing info of each segment) on terminal
 skip	= 1000			# Number of iteration to skip before printing timing info
@@ -26,7 +29,7 @@ for item in list_of_mass_sorted_catalogs:
 	start_time = time.time()
 
 	for n in range (X.size):			#Put X.size later
-		hist_temp,edge = pcf.counter(dr,X,Y,Z,n,chatter) 			 
+		hist_temp,edge = pcf.counter(X,Y,Z,n,chatter,bins) 			 
 		hist+= hist_temp
 		if n%skip==0 and chatter:
 			print "Running loops {} iterations done,\nTime for prev {} run is\t:".format(n,skip),time.time()-start_time
@@ -40,8 +43,9 @@ for item in list_of_mass_sorted_catalogs:
 
 	DD = hist
 	DD/=(X.size*(X.size-1))/2
-
-	RR = 4*pi*(edge[:-1])**2*dr/(300)**3 				
+	#~ d_lnr = (bins[1:]/bins[:-1])
+	d_lnr = np.log(bins[1:]/bins[:-1])
+	RR = 4*pi*(bins[:-1])**3*d_lnr/(300)**3 				
 
 	Xi = DD/RR-1
 	xi_file_name = 'Xi_'+file_name+'.txt'
