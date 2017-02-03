@@ -63,19 +63,19 @@ print("--- %s seconds ---" % (time.time() - start_time))
 lumi_for_all_sort=np.sort(lumi_for_all)
 luminosityFunction_SanityCheck=np.arange(lumi_for_all_sort.size)/float(lumi_for_all_sort.size)
 
-plt.plot(luminosity,luminosityFunction,label="Cdf from Yang Data")
-plt.plot(lumi_for_all_sort,luminosityFunction_SanityCheck,"r.",markersize=0.02,label="Cdf from Matched Luminosity")
+plt.plot(luminosity,luminosityFunction,label="Cdf from Yang Data",linewidth=5)
+plt.plot(lumi_for_all_sort,luminosityFunction_SanityCheck,'c--',linewidth=3,label="Cdf from Matched Luminosity")
 plt.xlabel('Luminosity')
 plt.ylabel('Cumulative Distribution Function')
 #plt.gca().invert_xaxis()
 #plt.xscale('log')
 plt.legend()
 plt.title('Cumulative Distribution Function of Yang Data and Matched Mock Luminosity ')
-plt.savefig('SanityCheck.pdf')
-#~ plt.show()
+plt.savefig('Cdf_SanityCheck.pdf')
+plt.show()
 plt.clf()
 #~ bins=np.linspace(min(np.log(luminosity)),max(np.log(luminosity)),10)
-bins=50000
+bins=20
 hist_yang,edge_yang=np.histogram(np.log(luminosity),bins)
 hist_mock,edge_mock=np.histogram(np.log(lumi_for_all_sort),bins)
 
@@ -89,7 +89,7 @@ plt.ylabel(r'Normalised number density of galaxies (in $(h^{-1}Mpc)^{-3}$ $(ln (
 plt.legend()
 plt.title('Luminosity function')
 plt.savefig('Histogram_SanityCheck.pdf')
-#~ plt.show()
+plt.show()
 
 
 
