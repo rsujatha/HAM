@@ -89,7 +89,8 @@ plt.ylabel(r'Normalised number density of galaxies (in $(h^{-1}Mpc)^{-3}$ $(ln (
 plt.legend()
 plt.title('Luminosity function')
 plt.savefig('Histogram_SanityCheck.pdf')
-plt.show()d
+plt.show()
+print 'Abundance matching done'
 
 
 
