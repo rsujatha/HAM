@@ -2,6 +2,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 #~ import pylab
 
+#~ chatter =True
 chatter=False
 
 X,Y,Z,M200b = np.loadtxt("x_y_z_m_sim_selected.txt",skiprows=1,unpack=True)
@@ -36,7 +37,7 @@ M200b_new= M200b[range_m]
 #~ print M200b_new
 #~ print X1
 np.savetxt('x1_y1_z1_m_sim_selected.txt',np.transpose([X1,Y1,Z1,M200b_new]),fmt=['%.6f','%.6f','%.6f','%.5e'], header = 'X1\tY1\tZ1\tM200b_new')
-
+print 'Lower limit of mass of simulation is determined; \t', '{0:.4e}'.format(massmin)
 
 
 

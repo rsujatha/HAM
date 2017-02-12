@@ -107,6 +107,10 @@ plt.legend()
 plt.title('Luminosity function')
 plt.savefig('Histogram_SanityCheck.pdf')
 plt.show()
+<<<<<<< HEAD
+=======
+print 'Abundance matching done'
+>>>>>>> 75e9f68c96fa08530562cc0b797165a62b4e33e8
 
 
 
