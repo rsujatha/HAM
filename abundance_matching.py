@@ -27,8 +27,21 @@ MFunction=np.arange(M.size)/float(M.size)
 
 
 plt.plot(M,MFunction)
-plt.title('Halo Mass Function cdf')
+plt.title('Halo Mass cdf')
 plt.xlabel('Halo Mass')
+plt.xscale('log')
+plt.yscale('log')
+
+plt.savefig('halo_mass_cdf.pdf')
+#plt.show()
+plt.clf()
+plt.plot(luminosity,luminosityFunction)
+plt.xscale('log')
+plt.yscale('log')
+
+plt.title('Luminoity cdf')
+plt.xlabel('Luminosity')
+plt.savefig('luminosity_cdf.pdf')
 #plt.show()
 plt.clf()
 
@@ -44,7 +57,7 @@ Mass_match=np.interp(cdf_match,MFunction, M)
 lumi_for_all = np.interp(Mass,Mass_match,Luminosity_match)
 
 #Mass_match
-plt.plot(Mass_match,Luminosity_match,'.r')
+plt.plot(Mass_match,Luminosity_match,'b')
 plt.xscale('log')
 #~ plt.plot(Mass,lumi_for_all,'.r')
 plt.yscale('log')
@@ -63,33 +76,37 @@ print("--- %s seconds ---" % (time.time() - start_time))
 lumi_for_all_sort=np.sort(lumi_for_all)
 luminosityFunction_SanityCheck=np.arange(lumi_for_all_sort.size)/float(lumi_for_all_sort.size)
 
-plt.plot(luminosity,luminosityFunction,label="Cdf from Yang Data",linewidth=5)
-plt.plot(lumi_for_all_sort,luminosityFunction_SanityCheck,'c--',linewidth=3,label="Cdf from Matched Luminosity")
+plt.plot(luminosity,luminosityFunction,label="Cdf from Yang Data",color='g')
+plt.plot(lumi_for_all_sort,luminosityFunction_SanityCheck,'r--',label="Cdf from Matched Luminosity")
 plt.xlabel('Luminosity')
 plt.ylabel('Cumulative Distribution Function')
 #plt.gca().invert_xaxis()
-#plt.xscale('log')
+plt.xscale('log')
+plt.yscale('log')
 plt.legend()
 plt.title('Cumulative Distribution Function of Yang Data and Matched Mock Luminosity ')
 plt.savefig('Cdf_SanityCheck.pdf')
-plt.show()
+#~ plt.show()
 plt.clf()
 #~ bins=np.linspace(min(np.log10(luminosity)),max(np.log10(luminosity)),10)
-bins=20
+bins=100
 hist_yang,edge_yang=np.histogram(np.log10(luminosity),bins)
 hist_mock,edge_mock=np.histogram(np.log10(lumi_for_all_sort),bins)
 
 bin_yang = edge_yang[1:]-edge_yang[:-1]
 bin_mock = edge_mock[1:]-edge_mock[:-1]
-plt.plot(10**edge_yang[:-1],hist_yang/(191)**3/bin_yang,'g',label='Yang Data')
-plt.plot(10**edge_mock[:-1],hist_mock/(300)**3/bin_mock,'r.',label='Mock Galaxy Data')
+ind_zero = np.where(hist_mock>=1e-9)[0]
+ind_yang = np.where(hist_yang>=1e-9)[0]
+plt.plot(10**edge_yang[:-1][ind_yang],hist_yang[ind_yang]/(191)**3/bin_yang[ind_yang],'g',label='Yang Data')
+plt.plot(10**edge_mock[:-1][ind_zero],hist_mock[ind_zero]/(300)**3/bin_mock[ind_zero],'r',label='Mock Galaxy Data')
 plt.xscale('log')
+plt.yscale('log')
 plt.xlabel('Luminosity')
 plt.ylabel(r'Normalised number density of galaxies (in $(h^{-1}Mpc)^{-3}$ $(ln (L))^{-1}$) ')
 plt.legend()
 plt.title('Luminosity function')
 plt.savefig('Histogram_SanityCheck.pdf')
-plt.show()d
+plt.show()
 
 
 
