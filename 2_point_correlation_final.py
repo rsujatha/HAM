@@ -42,10 +42,12 @@ for item in list_of_mass_sorted_catalogs:
 
 
 	DD = hist
-	DD/=(X.size*(X.size-1))/2
+	DD/=float((X.size*(X.size-1))/2.)
 	#~ d_lnr = (bins[1:]/bins[:-1])
-	d_lnr = np.log(bins[1:]/bins[:-1])
-	RR = 4*pi*(bins[:-1])**3*d_lnr/(300)**3 				
+	#~ d_lnr = np.log(bins[1:]/bins[:-1])
+	#~ RR = 4*pi*(bins[:-1])**3*d_lnr/(300.)**3 
+	rr=bins[1:]**3-bins[:-1]**3
+	RR = 4/3.*pi*(rr)/300.**3					
 
 	Xi = DD/RR-1
 	xi_file_name = 'Xi_'+file_name+'.txt'
