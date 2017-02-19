@@ -1,8 +1,6 @@
 import numpy as np
 import pair_counting_function as pcf
-#~ from scipy import spatial as sp
 import time
-#~ import sys
 import matplotlib.pyplot as plt
 from matplotlib import rc
 import glob
