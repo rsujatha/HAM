@@ -10,7 +10,6 @@ rc('font',**{'family':'serif','serif':['Computer Modern']} )
 
 start_time = time.time()
 
-
 # loading text
 mags = np.loadtxt ('abs_mag_data.txt')
 X,Y,Z,Mass= np.loadtxt ('x1_y1_z1_m_sim_selected.txt',unpack=True, skiprows=1)
@@ -30,19 +29,19 @@ plt.plot(M,MFunction)
 plt.title('Halo Mass cdf')
 plt.xlabel('Halo Mass')
 plt.xscale('log')
-plt.yscale('log')
+#plt.yscale('log')
 
 plt.savefig('halo_mass_cdf.pdf')
-#plt.show()
+plt.show()
 plt.clf()
 plt.plot(luminosity,luminosityFunction)
 plt.xscale('log')
-plt.yscale('log')
+#plt.yscale('log')
 
 plt.title('Luminoity cdf')
 plt.xlabel('Luminosity')
 plt.savefig('luminosity_cdf.pdf')
-#plt.show()
+plt.show()
 plt.clf()
 
 
@@ -58,13 +57,13 @@ lumi_for_all = np.interp(Mass,Mass_match,Luminosity_match)
 
 #Mass_match
 plt.plot(Mass_match,Luminosity_match,'b')
-plt.xscale('log')
+#plt.xscale('log')
 #~ plt.plot(Mass,lumi_for_all,'.r')
 plt.yscale('log')
 plt.ylabel('Luminosity')
 plt.xlabel('Halo Mass')
 plt.savefig ('Mass_lum_calc.pdf')
-#~ plt.show()
+plt.show()
 
 plt.clf()
 
@@ -82,14 +81,14 @@ plt.xlabel('Luminosity')
 plt.ylabel('Cumulative Distribution Function')
 #plt.gca().invert_xaxis()
 plt.xscale('log')
-plt.yscale('log')
+#plt.yscale('log')
 plt.legend()
 plt.title('Cumulative Distribution Function of Yang Data and Matched Mock Luminosity ')
 plt.savefig('Cdf_SanityCheck.pdf')
-#~ plt.show()
+plt.show()
 plt.clf()
 #~ bins=np.linspace(min(np.log10(luminosity)),max(np.log10(luminosity)),10)
-bins=100
+bins=10
 hist_yang,edge_yang=np.histogram(np.log10(luminosity),bins)
 hist_mock,edge_mock=np.histogram(np.log10(lumi_for_all_sort),bins)
 
