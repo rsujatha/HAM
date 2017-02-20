@@ -5,7 +5,7 @@ http://www.ncra.tifr.res.in:8081/~tirth/Teaching/Cosmology/Cosmology-Project-6-H
 For running all programs one after another, run following:
 
 "source project_bash.sh"
-
+NOTE: above command assumes that yang* file and out* file is already present in the current directory
 
 Project description
 ----------------------------
@@ -42,7 +42,7 @@ Description of the 2_pt_corr_test*.py files:
 
 
 1) 2_pt_corr_test1.py is a skeleteon code which was originally thought as 
-the way yo compute the distance between the points
+the way you compute the distance between the points
 
 2) 2_pt_corr_test2.py is a brute force method applied on all the points 
 and corrects for the edge effects in a robust manner. Sadly, the code is highly 
@@ -69,7 +69,7 @@ For generating different subsets of the mock catalog run the following command
 At this point we can run the 2 pt correlation on each of the Subsets of Mock Catalog
 This can be currently done by running 
 
- "python 2_point_correlation_final.py" or "python 2_pt_corr_test4.py"     ####Needs refinement of bin size
+ "python 2_point_correlation_final.py" or "python 2_pt_corr_test4.py"     
 
 In 2_point_correlation_final.py, the terminal output can be limited by changing the variable 'chatter' to False
 
@@ -77,4 +77,15 @@ To plot the estimator Vs distance in log scale run the following command
 
 "python final.py"
 
+---------------------------
+Using KDTREE
+--------------------------------
 
+Using scipy's module 'spatial', KDTREE algorithm can be utilised for 
+computing the number of galaxies which are less than a certain distance
+'r' and this can be converted to required data by subtracting consecutive 
+shells. The edges effects are taken care of in a fashion similar to 2_pt_corr_test2.py
+
+To run the kdtree algorithm file use following 
+
+"python kdtreetest.py"
