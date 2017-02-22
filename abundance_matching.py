@@ -17,6 +17,14 @@ X,Y,Z,Mass= np.loadtxt ('x1_y1_z1_m_sim_selected.txt',unpack=True, skiprows=1)
 #sorting in increasing order
 luminosity = np.sort(10**(-(mags-4.77)/2.5))		# In unit of Solar luminosity
 M = np.sort(Mass)
+his_mass = np.histogram (M[:100000],10000)
+plt.plot(his_mass[1][:-1],his_mass[0],'.')
+plt.xscale('log')
+plt.yscale('log')
+plt.show()
+plt.clf()
+
+#~ plt.plot()
 #print luminosity
 
 # cdf for both luminosity and mass
@@ -47,7 +55,7 @@ plt.clf()
 
 
 # Interpolating for a uniform Luminosity binning
-Luminosity_match=np.linspace(luminosity[0],luminosity[-1],1e4)
+Luminosity_match=np.linspace(luminosity[0],luminosity[-1],1e6)
 cdf_match=np.interp(Luminosity_match,luminosity,luminosityFunction)
 Mass_match=np.interp(cdf_match,MFunction, M)
 
@@ -88,7 +96,7 @@ plt.savefig('Cdf_SanityCheck.pdf')
 plt.show()
 plt.clf()
 #~ bins=np.linspace(min(np.log10(luminosity)),max(np.log10(luminosity)),10)
-bins=10
+bins=100
 hist_yang,edge_yang=np.histogram(np.log10(luminosity),bins)
 hist_mock,edge_mock=np.histogram(np.log10(lumi_for_all_sort),bins)
 
