@@ -14,10 +14,10 @@ pi=np.pi
 
 label = ['M$<-20$','M$<-21$','M$<-22$']
 color = ['r','b','g']
-mock_files = np.sort(glob.glob("mockgalaxySubse*.txt")
-for x in range (xi_files.size):
+mock_files = np.sort(glob.glob("mockgalaxySubse*.txt"))
+for x in range (mock_files.size):
 	M,L,X,Y,Z = np.loadtxt (mock_files[x],unpack=True, skiprows=1)
-	bin_num=20
+	bin_num=100
 	pairsN=float(X.size*(X.size-1)/2.)
 	DD,bins=pcf.counter_kdtree(X,Y,Z,bin_num)
 	DD=DD/pairsN
