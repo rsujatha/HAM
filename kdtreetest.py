@@ -31,12 +31,6 @@ for x in range (mock_files.size):
 	kdtree_file_name = 'kdtree_'+file_name+'.txt'
 	
 	np.savetxt(kdtree_file_name,np.transpose([bins_array,Xi]),header='r\tXi')
-	plt.plot(bins_array,Xi,'-o',color=color[x],label=label[x])
 print "Time taken\t" , time.time()-begin
-plt.xscale('log')
-plt.yscale('log')
-plt.legend()
-plt.savefig('kdtreeXi.pdf')
-plt.show()
-
+print "All files created\nRun python final_kdtree.py to get the plot"
 
