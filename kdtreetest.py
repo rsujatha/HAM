@@ -17,7 +17,7 @@ color = ['r','b','g']
 mock_files = np.sort(glob.glob("mockgalaxySubse*.txt"))
 for x in range (mock_files.size):
 	M,L,X,Y,Z = np.loadtxt (mock_files[x],unpack=True, skiprows=1)
-	bin_num=100
+	bin_num=10
 	pairsN=float(X.size*(X.size-1)/2.)
 	DD,bins=pcf.counter_kdtree(X,Y,Z,bin_num)
 	DD=DD/pairsN
@@ -26,7 +26,13 @@ for x in range (mock_files.size):
 	Xi=DD/RR-1
 	#~ print Xi.size
 	bins_array=(bins[1:]+bins[:-1])/2.
+	item = mock_files[x]
+	file_name = item.split('.')[0]
+	kdtree_file_name = 'kdtree_'+file_name+'.txt'
+	
+	np.savetxt(kdtree_file_name,np.transpose([bins_array,Xi]),header='r\tXi')
 	plt.plot(bins_array,Xi,'-o',color=color[x],label=label[x])
+print "Time taken\t" , time.time()-begin
 plt.xscale('log')
 plt.yscale('log')
 plt.legend()

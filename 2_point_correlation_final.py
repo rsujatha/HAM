@@ -4,17 +4,16 @@ import time
 import glob
 
 
-#~ dr 	= 0.1
-bin_num	= float(raw_input("Enter the value of number of logarithmic bins:\t"))
-
+#~ bin_num	= float(raw_input("Enter the value of number of logarithmic bins:\t"))
+bin_num = 20
 ### using logarithmic binning in dr 
 bins = np.exp(np.linspace(np.log(0.2),np.log(75),bin_num))
 pi = np.pi
-#~ bins = int((75-0.2)/dr)
 hist=np.zeros(bins.size-1)
 
-chatter = True 			# Put Chatter True if want more output (like timing info of each segment) on terminal
-skip	= 1000			# Number of iteration to skip before printing timing info
+#~ chatter = True 			# Put Chatter True if want more output (like timing info of each segment) on terminal
+chatter = False 			# Put Chatter False if want no info on terminal is preferred 
+skip	= 1000				# Number of iteration to skip before printing timing info
 
 
 list_of_mass_sorted_catalogs = glob.glob('mockgalaxySubset*')
@@ -27,7 +26,7 @@ for item in list_of_mass_sorted_catalogs:
 	M,L,X,Y,Z = np.loadtxt (item,unpack=True, skiprows=1)
 	if chatter: print 'Data loaded\nTime taken\t:',time.time()-start_time
 	start_time = time.time()
-
+	print "Expected number of iterations is {size}".format (X.size)
 	for n in range (X.size):			#Put X.size later
 		hist_temp,edge = pcf.counter(X,Y,Z,n,chatter,bins) 			 
 		hist+= hist_temp
@@ -42,14 +41,11 @@ for item in list_of_mass_sorted_catalogs:
 
 
 	DD = hist
-	DD/=float((X.size*(X.size-1))/2.)
-	#~ d_lnr = (bins[1:]/bins[:-1])
-	#~ d_lnr = np.log(bins[1:]/bins[:-1])
-	#~ RR = 4*pi*(bins[:-1])**3*d_lnr/(300.)**3 
+	DD/=float((X.size*(X.size-1))/2.) 		# Converting to density of points
 	rr=bins[1:]**3-bins[:-1]**3
 	RR = 4/3.*pi*(rr)/300.**3					
 
 	Xi = DD/RR-1
 	xi_file_name = 'Xi_'+file_name+'.txt'
 	np.savetxt(xi_file_name,np.transpose(Xi),fmt='%.6f')
-if chatter: print "All files created\nRun python final.py to get the plot"
+print "All files created\nRun python final.py to get the plot"

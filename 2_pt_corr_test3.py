@@ -2,9 +2,6 @@ import numpy as np
 import pair_counting_function as pcf
 import time
 
-
-
-
 #~ parallelise = True
 parallelise = False
 

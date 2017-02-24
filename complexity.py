@@ -11,10 +11,12 @@ T3=[]
 T4=[]
 
 
-NofPoints=range(1,100000,10000)
+NofPoints=np.linspace(int(np.log10(1)),int(np.log10(100000)),10000)
+#~ NofPoints=range(1,100000,10000)
 
 for i in NofPoints:
 	print i
+	i = int(10**i)
 	##semi bruteforce
 	t=time.time()
 	bins = np.exp(np.linspace(np.log(0.2),np.log(75),20))
