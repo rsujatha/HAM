@@ -286,6 +286,102 @@ def counter_version5 (dr,X,Y,Z,n,chatter):
 
 
 
+def counter_bruteforce(X,Y,Z,dr):
+	
+	'''
+	
+	Takes the coordinates of the galaxies and computes distances between each pair 
+	and generates an histogram which is then returned
+	
+	Input:
+	-----------------
+	X				: X coordinate of the galaxy
+	Y				: Y coordinate of the galaxy
+	Z				: Z coordinate of the galaxy
+	dr				: Bin width of the histogram
+	
+	Output:
+	-----------------
+	hist			: Histogram of the distances between galaxies
+	edge			: Edges of the histogram
+	
+	
+	Note:
+	1) The code doesn't correct for the edge effects
+	2) The length of edges array is one more than histogram
+	
+	'''
+	T = time.time()	
+	P = np.array([X,Y,Z])	# Creating a coordinate map of points
+	num = X.size 			# Number of points
+	hist=0
+	a=np.log10(0.2)
+	b=np.log10(75.)
+	bins_array=np.linspace(a,b,20)
+	bins_array=10.**bins_array
+	for x in range(0,len(X)):
+		X_diff = np.abs(X[x]-X[x+1:])
+		Y_diff = np.abs(Y[x]-Y[x+1:])
+		Z_diff = np.abs(Z[x]-Z[x+1:])
+		X_diff = np.minimum(X_diff,300-X_diff)
+		Y_diff = np.minimum(Y_diff,300-Y_diff)
+		Z_diff = np.minimum(Z_diff,300-Z_diff) 
+		sum_d = np.sqrt(X_diff**2 + Y_diff**2 + Z_diff**2)
+		hist1,edge = np.histogram(sum_d,bins=bins_array)
+		hist+=hist1
+		
+	return hist
+
+
+def counter_spherical_select(X,Y,Z,dr):
+	
+	'''
+	
+	Takes the coordinates of the galaxies and computes distances between each pair 
+	and generates an histogram which is then returned
+	
+	Input:
+	-----------------
+	X				: X coordinate of the galaxy
+	Y				: Y coordinate of the galaxy
+	Z				: Z coordinate of the galaxy
+	dr				: Bin width of the histogram
+	
+	Output:
+	-----------------
+	hist			: Histogram of the distances between galaxies
+	edge			: Edges of the histogram
+	
+	
+	Note:
+	1) The code doesn't correct for the edge effects
+	2) The length of edges array is one more than histogram
+	
+	'''
+	T = time.time()	
+	P = np.array([X,Y,Z])	# Creating a coordinate map of points
+	num = X.size 			# Number of points
+	hist=0
+	a=np.log10(0.2)
+	b=np.log10(75.)
+	bins_array=np.linspace(a,b,20)
+	bins_array=10.**bins_array
+	#a=0.2
+	#b=75
+	for x in range(0,len(X)):
+		X_diff = np.abs(X[x]-X[x+1:])
+		Y_diff = np.abs(Y[x]-Y[x+1:])
+		Z_diff = np.abs(Z[x]-Z[x+1:])
+		X_diff = np.minimum(X_diff,300-X_diff)
+		Y_diff = np.minimum(Y_diff,300-Y_diff)
+		Z_diff = np.minimum(Z_diff,300-Z_diff) 
+		sum_d = np.sqrt(X_diff**2 + Y_diff**2 + Z_diff**2)
+		index=np.where(sum_d<=80)[0]
+		hist1,edge = np.histogram(sum_d[index],bins=bins_array)
+		hist+=hist1
+		
+	return hist,edge
+
 #~ X = np.array([1,2,3,4,5])
 #~ Y = np.array([6,7,8,9,0]) 
 #~ Z = np.array([1,3,5,7,9])
