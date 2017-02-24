@@ -82,10 +82,10 @@ plt.xscale('log')
 #~ plt.plot(Mass,lumi_for_all,'.r')
 plt.yscale('log')
 plt.ylabel('Luminosity')
-plt.xlabel('Halo Mass')
+plt.xlabel('Halo Mass Msun/h')
 plt.savefig ('Mass_lum_calc.pdf')
 if show_flag: plt.show()
-
+plt.show()
 plt.clf()
 
 ### Saving the Output file for use in next part
