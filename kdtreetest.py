@@ -19,7 +19,7 @@ for x in range (mock_files.size):
 	M,L,X,Y,Z = np.loadtxt (mock_files[x],unpack=True, skiprows=1)
 	bin_num=10
 	pairsN=float(X.size*(X.size-1)/2.)
-	DD,bins=pcf.counter_kdtree(X,Y,Z,bin_num)
+	DD,bins=pcf.counter_kdtree(X,Y,Z,0.2,75,bin_num)
 	DD=DD/pairsN
 	rr=bins[1:]**3-bins[:-1]**3
 	RR = 4/3.*pi*(rr)/300.**3
