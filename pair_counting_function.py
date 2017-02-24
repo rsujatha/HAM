@@ -41,14 +41,14 @@ def counter (X,Y,Z,n,chatter,bins=None):
 	index = np.where(((del_x<75)) & 
 					((del_y<75)) & 
 					((del_z<75)) ) [0]
-	#~ if n%skip==0 and chatter: print 'time for finding the small cube for {} iter'.format(skip), (time.time()-start_time )*skip
+	if n%skip==0 and chatter: print 'time for finding the small cube for {} iter'.format(skip), (time.time()-start_time )*skip
 	start_time = time.time()
 	dist_array = np.sqrt( del_x[index]**2+del_y[index]**2+del_z[index]**2)
-	#~ if n%skip==0 and chatter: print 'time for computing distance for {} iter'.format(skip), (time.time()-start_time )*skip
+	if n%skip==0 and chatter: print 'time for computing distance for {} iter'.format(skip), (time.time()-start_time )*skip
 	#~ bins = int((75-0.2)/dr)
 	start_time = time.time()
 	hist, edge =  np.histogram(dist_array,bins,range = (0.2,75))
-	#~ if n%skip==0 and chatter: print 'time for making histogram for {} iter'.format(skip), (time.time()-start_time )*skip
+	if n%skip==0 and chatter: print 'time for making histogram for {} iter'.format(skip), (time.time()-start_time )*skip
 
 	return hist,edge
 
@@ -234,98 +234,3 @@ def counter_kdtree (X,Y,Z,bin_num):
 	n=T.count_neighbors(T_all,bins)
 	return ( n[1:]-n[:-1])/2 , bins
 
-def counter_bruteforce(X,Y,Z,dr):
-	
-	'''
-	
-	Takes the coordinates of the galaxies and computes distances between each pair 
-	and generates an histogram which is then returned
-	
-	Input:
-	-----------------
-	X				: X coordinate of the galaxy
-	Y				: Y coordinate of the galaxy
-	Z				: Z coordinate of the galaxy
-	dr				: Bin width of the histogram
-	
-	Output:
-	-----------------
-	hist			: Histogram of the distances between galaxies
-	edge			: Edges of the histogram
-	
-	
-	Note:
-	1) The code doesn't correct for the edge effects
-	2) The length of edges array is one more than histogram
-	
-	'''
-	T = time.time()	
-	P = np.array([X,Y,Z])	# Creating a coordinate map of points
-	num = X.size 			# Number of points
-	hist=0
-	a=np.log10(0.2)
-	b=np.log10(75.)
-	bins_array=np.linspace(a,b,20)
-	bins_array=10.**bins_array
-	for x in range(0,len(X)):
-		X_diff = np.abs(X[x]-X[x+1:])
-		Y_diff = np.abs(Y[x]-Y[x+1:])
-		Z_diff = np.abs(Z[x]-Z[x+1:])
-		X_diff = np.minimum(X_diff,300-X_diff)
-		Y_diff = np.minimum(Y_diff,300-Y_diff)
-		Z_diff = np.minimum(Z_diff,300-Z_diff) 
-		sum_d = np.sqrt(X_diff**2 + Y_diff**2 + Z_diff**2)
-		hist1,edge = np.histogram(sum_d,bins=bins_array)
-		hist+=hist1
-		
-	return hist
-
-
-def counter_spherical_select(X,Y,Z,dr):
-	
-	'''
-	
-	Takes the coordinates of the galaxies and computes distances between each pair 
-	and generates an histogram which is then returned
-	
-	Input:
-	-----------------
-	X				: X coordinate of the galaxy
-	Y				: Y coordinate of the galaxy
-	Z				: Z coordinate of the galaxy
-	dr				: Bin width of the histogram
-	
-	Output:
-	-----------------
-	hist			: Histogram of the distances between galaxies
-	edge			: Edges of the histogram
-	
-	
-	Note:
-	1) The code doesn't correct for the edge effects
-	2) The length of edges array is one more than histogram
-	
-	'''
-	T = time.time()	
-	P = np.array([X,Y,Z])	# Creating a coordinate map of points
-	num = X.size 			# Number of points
-	hist=0
-	a=np.log10(0.2)
-	b=np.log10(75.)
-	bins_array=np.linspace(a,b,20)
-	bins_array=10.**bins_array
-	#a=0.2
-	#b=75
-	for x in range(0,len(X)):
-		X_diff = np.abs(X[x]-X[x+1:])
-		Y_diff = np.abs(Y[x]-Y[x+1:])
-		Z_diff = np.abs(Z[x]-Z[x+1:])
-		X_diff = np.minimum(X_diff,300-X_diff)
-		Y_diff = np.minimum(Y_diff,300-Y_diff)
-		Z_diff = np.minimum(Z_diff,300-Z_diff) 
-		sum_d = np.sqrt(X_diff**2 + Y_diff**2 + Z_diff**2)
-		index=np.where(sum_d<=80)[0]
-		hist1,edge = np.histogram(sum_d[index],bins=bins_array)
-		hist+=hist1
-		
-	return hist,edge
