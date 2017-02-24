@@ -27,38 +27,6 @@ M = np.sort(Mass)
 luminosityFunction=np.arange(luminosity.size)/float(luminosity.size)
 MFunction=np.arange(M.size)/float(M.size)
 
-#~ fig = plt.figure(figsize=(16,6))
-#~ ax1 = fig.add_subplot(121)
-#~ ax2 = fig.add_subplot(122)
-#~ 
-#~ ax1.plot(M,MFunction,linewidth=2.5,color='g')
-#~ ax1.plot([1.9468e12,1.9468e12],[0,0.8],'b')
-#~ ax1.set_title('Halo Mass Cumulative Distribution Function')
-#~ ax1.set_xlabel('Halo Mass M')
-#~ ax1.set_ylabel('$n(<M)$')
-#~ ax1.set_xscale('log')
-#~ ax2.plot(luminosity,luminosityFunction,linewidth=2.5,color='g')
-#~ ax2.plot([1.372e10,1.372e10],[0,0.8],'b')
-#~ 
-#~ ax2.set_title('Luminosity Cumulative Distribution Function')
-#~ ax2.set_xlabel('Luminosity L')
-#~ ax2.set_ylabel('$n(<L)$')
-#~ ax2.set_xscale('log')
-#~ 
-#~ 
-#~ transFigure = fig.transFigure.inverted()
-#~ 
-#~ coord1 = transFigure.transform(ax1.transData.transform([1.9468e12,0.8]))
-#~ coord2 = transFigure.transform(ax2.transData.transform([1.372e10,0.8]))
-#~ 
-#~ 
-#~ line = matplotlib.lines.Line2D((coord1[0],coord2[0]),(coord1[1],coord2[1]),
-                               #~ transform=fig.transFigure)
-                               #~ 
-#~ fig.lines = line,
-#~ 
-#~ plt.savefig('AbundanceM.pdf')
-#~ plt.clf()
 
 
 
@@ -159,3 +127,36 @@ plt.title('Luminosity function')
 plt.savefig('Histogram_SanityCheck.pdf')
 if show_flag: plt.show()
 print 'Abundance matching done'
+fig = plt.figure(figsize=(10,4))
+ax1 = fig.add_subplot(121)
+ax2 = fig.add_subplot(122)
+
+ax1.plot(M,MFunction,linewidth=2.5,color='g')
+ax1.plot([1.9468e12,1.9468e12],[0,0.8],'b')
+ax1.set_title('Halo Mass Cumulative Distribution Function')
+ax1.set_xlabel('Halo Mass M')
+ax1.set_ylabel('$n(<M)$')
+ax1.set_xscale('log')
+plt.grid()
+ax2.plot(luminosity,luminosityFunction,linewidth=2.5,color='g')
+ax2.plot([1.372e10,1.372e10],[0,0.8],'b')
+
+ax2.set_title('Luminosity Cumulative Distribution Function')
+ax2.set_xlabel('Luminosity L')
+ax2.set_ylabel('$n(<L)$')
+ax2.set_xscale('log')
+
+plt.grid()
+transFigure = fig.transFigure.inverted()
+
+coord1 = transFigure.transform(ax1.transData.transform([1.9468e12,0.8]))
+coord2 = transFigure.transform(ax2.transData.transform([1.372e10,0.8]))
+
+
+line = matplotlib.lines.Line2D((coord1[0],coord2[0]),(coord1[1],coord2[1]),
+                               transform=fig.transFigure)
+                               
+fig.lines = line,
+
+plt.savefig('AbundanceM.pdf')
+plt.clf()
