@@ -25,7 +25,7 @@ def counter (X,Y,Z,n,chatter,bins=None):
 	
 	
 	'''
-	if bins==None: bins= int((75-0.2)/dr)
+	if bins==None: bins= int((75-0.2)/1)			# Default binning of 1 Mpc
 	P = np.array([X,Y,Z])
 	p = P[:,n]				## Coordinates of the point in consideration. The (small) cube is made around this point
 	c = P[:,n+1:]			## Shortened array
