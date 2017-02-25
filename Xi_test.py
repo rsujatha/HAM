@@ -29,12 +29,13 @@ hist=np.zeros(bins)
 chatter=False
 
 for n in range (X.size):
-	hist_temp,edge = pcf.counter(dr,X,Y,Z,n,chatter)
+	hist_temp,edge = pcf.counter(X,Y,Z,n,chatter)
 	hist+= hist_temp
 DD=hist/(X.size*(X.size-1)/2)
-RR = (4*pi*(edge[:-1])**2*dr)/300**3
+RR = (4*pi*(edge[:-1])**2*dr)/300.**3
 #~ print DD/RR-1
 print "time taken", time.time()-begin
-plt.plot(DD/RR-1,'.')
+plt.plot(DD/RR-1,'.b')
+plt.savefig('Xi_test.pdf')
 plt.show()
 
